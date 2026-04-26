@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="{% url 'customer_profile' customer.pk %}" class="text-decoration-none text-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Profile
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white pt-4">
+                <h4 class="mb-0">{% if is_edit %}Edit{% else %}Upload{% endif %} Documents for {{ customer.full_name }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <h5 class="text-muted text-uppercase small fw-bold mb-3 border-bottom pb-2">Identity & Contract (PNG Only)</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Customer Passport</label>
+                            {{ form.passport_customer }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Wife Passport</label>
+                            {{ form.passport_wife }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Installment Contract</label>
+                            {{ form.installment_contract }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Car Tech Passport</label>
+                            {{ form.car_tech_passport }}
+                        </div>
+                    </div>
+
+                    <h5 class="text-muted text-uppercase small fw-bold mb-3 border-bottom pb-2">Car Photos</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-3">
+                            <label class="form-label small">Front</label>
+                            {{ form.car_photo_front }}
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small">Back</label>
+                            {{ form.car_photo_back }}
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small">Left</label>
+                            {{ form.car_photo_left }}
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small">Right</label>
+                            {{ form.car_photo_right }}
+                        </div>
+                    </div>
+
+                    <h5 class="text-muted text-uppercase small fw-bold mb-3 border-bottom pb-2">Relatives' Contacts</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label small">Relative 1 Phone</label>
+                            {{ form.relative_1_phone }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small">Relative 2 Phone</label>
+                            {{ form.relative_2_phone }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small">Relative 3 Phone</label>
+                            {{ form.relative_3_phone }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Relative 4 Phone</label>
+                            {{ form.relative_4_phone }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Relative 5 Phone</label>
+                            {{ form.relative_5_phone }}
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'customer_profile' customer.pk %}" class="btn btn-light px-4">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-5 fw-bold">Save Documents</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
