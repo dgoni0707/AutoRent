@@ -121,7 +121,7 @@
                         <a href="{% url 'customer_calendar' customer.pk %}" class="btn btn-warning shadow-sm fw-bold px-3 me-2 text-dark">
                             <i class="bi bi-calendar-x"></i> Missed/Calendar
                         </a>
-                        <button class="btn btn-info text-white shadow-sm fw-bold px-4" onclick="alert('Total Paid Across All Time: {{ total_paid }}')">
+                        <button class="btn btn-info text-white shadow-sm fw-bold px-4" onclick="Swal.fire({title: 'Total Paid Check', text: 'Total Paid Across All Time: {{ total_paid }}', icon: 'info', confirmButtonColor: '#0dcaf0'})">
                             <i class="bi bi-calculator"></i> Total Check
                         </button>
                     </div>
@@ -262,9 +262,21 @@
             body: JSON.stringify(data)
         }).then(response => {
             if(response.ok) {
-                window.location.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Payment Saved',
+                    text: 'The payment has been successfully recorded.',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.reload();
+                });
             } else {
-                alert("Failed to save payment.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Failed to save payment.'
+                });
             }
         });
     });
@@ -289,7 +301,12 @@
                             monthlyAmount = matchedData.total;
                         }
                     }
-                    alert(`Total Paid in ${targetMonth}: ${monthlyAmount}`);
+                        Swal.fire({
+                            title: `Total for ${targetMonth}`,
+                            html: `<h2 class="text-success">$${monthlyAmount}</h2>`,
+                            icon: 'success',
+                            confirmButtonColor: '#198754'
+                        });
                 });
         });
     });
